@@ -1,6 +1,6 @@
 {
-  "name": "material-ui-vite",
-  "version": "5.0.0",
+  "name": "orange-frontend",
+  "version": "0.0.0",
   "private": true,
   "type": "module",
   "scripts": {

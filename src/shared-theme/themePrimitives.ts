@@ -1,8 +1,34 @@
-import { createTheme, alpha } from '@mui/material/styles';
+import { createTheme, alpha, PaletteMode, Shadows } from '@mui/material/styles';
+
+declare module '@mui/material/Paper' {
+  interface PaperPropsVariantOverrides {
+    highlighted: true;
+  }
+}
+declare module '@mui/material/styles/createPalette' {
+  interface ColorRange {
+    50: string;
+    100: string;
+    200: string;
+    300: string;
+    400: string;
+    500: string;
+    600: string;
+    700: string;
+    800: string;
+    900: string;
+  }
+
+  interface PaletteColor extends ColorRange {}
+
+  interface Palette {
+    baseShadow: string;
+  }
+}
 
 const defaultTheme = createTheme();
 
-const customShadows = [...defaultTheme.shadows];
+const customShadows: Shadows = [...defaultTheme.shadows];
 
 export const brand = {
   50: 'hsl(210, 100%, 95%)',
@@ -69,7 +95,7 @@ export const red = {
   900: 'hsl(0, 93%, 6%)',
 };
 
-export const getDesignTokens = (mode) => {
+export const getDesignTokens = (mode: PaletteMode) => {
   customShadows[1] =
     mode === 'dark'
       ? 'hsla(220, 30%, 5%, 0.7) 0px 4px 16px 0px, hsla(220, 25%, 10%, 0.8) 0px 8px 16px -5px'
@@ -145,10 +171,7 @@ export const getDesignTokens = (mode) => {
         primary: gray[800],
         secondary: gray[600],
         warning: orange[400],
-        ...(mode === 'dark' && {
-          primary: 'hsl(0, 0%, 100%)',
-          secondary: gray[400],
-        }),
+        ...(mode === 'dark' && { primary: 'hsl(0, 0%, 100%)', secondary: gray[400] }),
       },
       action: {
         hover: alpha(gray[200], 0.2),
@@ -371,8 +394,6 @@ export const shape = {
   borderRadius: 8,
 };
 
-const defaultShadows = [
-  'var(--mui-palette-baseShadow)',
-  ...defaultTheme.shadows.slice(1),
-];
+// @ts-ignore
+const defaultShadows: Shadows = ['var(--mui-palette-baseShadow)', ...defaultTheme.shadows.slice(1)];
 export const shadows = defaultShadows;

@@ -14,10 +14,7 @@
     "@mui/material": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "@mui/material": "latest",
-    "@mui/icons-material": "latest",
-    "@emotion/styled": "latest",
-    "@emotion/react": "latest"
+    "@mui/icons-material": "latest"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "latest",

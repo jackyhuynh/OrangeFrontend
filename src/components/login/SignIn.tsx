@@ -201,7 +201,7 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
               Don&apos;t have an account?{' '}
               <span>
                 <Link
-                  href="/material-ui/getting-started/templates/sign-in/"
+                  href="/sign-in/"
                   variant="body2"
                   sx={{ alignSelf: 'center' }}
                 >

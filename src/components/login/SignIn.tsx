@@ -17,6 +17,8 @@ import ForgotPassword from './ForgotPassword';
 import { GoogleIcon, FacebookIcon, SitemarkIcon } from './CustomIcons';
 import AppTheme from "../../shared-theme/AppTheme";
 import ColorModeSelect from "../../shared-theme/ColorModeSelect";
+import {Link as RouterLink} from 'react-router-dom';
+
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: 'flex',
@@ -201,7 +203,8 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
               Don&apos;t have an account?{' '}
               <span>
                 <Link
-                  href="/sign-in/"
+                  component={RouterLink}
+                  to="/sign-up"
                   variant="body2"
                   sx={{ alignSelf: 'center' }}
                 >

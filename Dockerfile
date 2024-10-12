@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # Expose the Vite default port
-EXPOSE 5173
+EXPOSE 3000
 
 # Ensure Vite listens on all network interfaces (0.0.0.0)
 ENV HOST 0.0.0.0

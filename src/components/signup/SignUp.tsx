@@ -61,29 +61,74 @@ const SignUpContainer = styled(Stack)(({theme}) => ({
 }));
 
 export default function SignUp(props: { disableCustomTheme?: boolean }) {
+    // States for input values and errors
+    const [email, setEmail] = React.useState('');
+    const [password, setPassword] = React.useState('');
+    const [fullName, setFullName] = React.useState('');
+    const [phone, setPhone] = React.useState('');
+
     const [emailError, setEmailError] = React.useState(false);
     const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
     const [passwordError, setPasswordError] = React.useState(false);
     const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
+    const [phoneError, setPhoneError] = React.useState(false);
+    const [phoneErrorMessage, setPhoneErrorMessage] = React.useState('');
+    const [fullNameError, setFullNameError] = React.useState(false);
+    const [fullNameErrorMessage, setFullNameErrorMessage] = React.useState('');
+
+    // Handle input changes
+    const handleInputChange = (setter) => (event) => setter(event.target.value);
+
+    // Clear form inputs and errors
+    const clearForm = () => {
+        setEmail('');
+        setPassword('');
+        setFullName('');
+        setPhone('');
+
+        setEmailError(false);
+        setPasswordError(false);
+        setPhoneError(false);
+        setFullNameError(false);
+
+        setEmailErrorMessage('');
+        setPasswordErrorMessage('');
+        setPhoneErrorMessage('');
+        setFullNameErrorMessage('');
+    };
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        if (emailError || passwordError) {
-            event.preventDefault();
-            return;
-        }
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+        event.preventDefault();
+
+        if (!validateInputs()) return;
+        console.log(fullName, phone, email, password);
+        clearForm();
+    };
+
+    const validatePhoneNumber = (phone: string) => {
+        const phonePattern = /^[0-9\-\(\)\s]+$/; // Allows digits, dashes, spaces, and parentheses
+        return phonePattern.test(phone) && phone.replace(/\D/g, '').length === 10;
     };
 
     const validateInputs = () => {
         const email = document.getElementById('email') as HTMLInputElement;
         const password = document.getElementById('password') as HTMLInputElement;
+        const phone = document.getElementById('phoneNumber') as HTMLInputElement;
+        const fullName = document.getElementById('fullName') as HTMLInputElement;
 
         let isValid = true;
 
+        // Full Name
+        if (!fullName.value.trim()) {
+            setFullNameError(true);
+            setFullNameErrorMessage('Full name is required.');
+            isValid = false;
+        } else {
+            setFullNameError(false);
+            setFullNameErrorMessage('');
+        }
+
+        // Email
         if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
             setEmailError(true);
             setEmailErrorMessage('Please enter a valid email address.');
@@ -93,6 +138,17 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
             setEmailErrorMessage('');
         }
 
+        // Phone Number
+        if (!validatePhoneNumber(phone.value)) {
+            setPhoneError(true);
+            setPhoneErrorMessage('Please enter a valid 10-digit phone number.');
+            isValid = false;
+        } else {
+            setPhoneError(false);
+            setPhoneErrorMessage('');
+        }
+
+        // Password
         if (!password.value || password.value.length < 6) {
             setPasswordError(true);
             setPasswordErrorMessage('Password must be at least 6 characters long.');
@@ -130,14 +186,57 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
                             gap: 2,
                         }}
                     >
-                        <FormControl>
-                            <FormLabel htmlFor="email">Email</FormLabel>
+                        <FormControl error={fullNameError} required={true}>
+                            <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
+                                <FormLabel htmlFor="fullName">Full Name</FormLabel>
+                            </Box>
+
                             <TextField
-                                error={emailError}
+                                id="fullName"
+                                type="text"
+                                name="fullName"
+                                value={fullName}
+                                onChange={handleInputChange(setFullName)}
+                                placeholder="John Doe"
+                                required={true}
+                                fullWidth
+                                variant="outlined"
+                                helperText={fullNameErrorMessage}
+                            />
+                        </FormControl>
+
+                        <FormControl error={phoneError} required>
+                            <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
+                                <FormLabel htmlFor="phoneNumber">Phone Number</FormLabel>
+                            </Box>
+
+                            <TextField
+                                error={phoneError}
+                                helperText={phoneErrorMessage}
+                                id="phoneNumber"
+                                type="tel"
+                                name="phoneNumber"
+                                value={phone}
+                                onChange={handleInputChange(setPhone)}
+                                placeholder="(123) 456-7890"
+                                autoComplete="tel"
+                                required={true}
+                                fullWidth
+                                variant="outlined"
+                            />
+                        </FormControl>
+
+                        <FormControl error={emailError} required>
+                            <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
+                                <FormLabel htmlFor="email">Email</FormLabel>
+                            </Box>
+                            <TextField
                                 helperText={emailErrorMessage}
                                 id="email"
                                 type="email"
                                 name="email"
+                                value={email}
+                                onChange={handleInputChange(setEmail)}
                                 placeholder="your@email.com"
                                 autoComplete="email"
                                 autoFocus
@@ -148,7 +247,8 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
                                 sx={{ariaLabel: 'email'}}
                             />
                         </FormControl>
-                        <FormControl>
+
+                        <FormControl error={passwordError} required>
                             <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
                                 <FormLabel htmlFor="password">Password</FormLabel>
                             </Box>
@@ -159,6 +259,8 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
                                 placeholder="••••••"
                                 type="password"
                                 id="password"
+                                value={password}
+                                onChange={handleInputChange(setPassword)}
                                 autoComplete="current-password"
                                 autoFocus
                                 required
@@ -167,6 +269,7 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
                                 color={passwordError ? 'error' : 'primary'}
                             />
                         </FormControl>
+
                         <FormControlLabel
                             control={<Checkbox value="receiveUpdate" color="primary"/>}
                             label="I want to receive update via email."

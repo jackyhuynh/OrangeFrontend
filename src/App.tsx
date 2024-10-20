@@ -52,7 +52,6 @@ export default function App() {
                             }
                         />
                     </Routes>
-                    {/* Keep ProTip and Copyright on all pages */}
                     <ProTip/>
                     <Copyright/>
                 </Box>

@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview",
-    "test": "vitest"
+    "test": "vitest",
+    "coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@emotion/react": "latest",
@@ -19,10 +20,14 @@
     "react-router-dom": "latest"
   },
   "devDependencies": {
+    "@eslint/js": "^9.13.0",
     "@testing-library/jest-dom": "latest",
     "@testing-library/react": "latest",
     "@types/react-dom": "^18.3.1",
+    "@typescript-eslint/parser": "^8.11.0",
     "@vitejs/plugin-react": "latest",
+    "@vitest/coverage-v8": "latest",
+    "globals": "^15.11.0",
     "jsdom": "^25.0.1",
     "vite": "latest",
     "vitest": "^2.1.3"

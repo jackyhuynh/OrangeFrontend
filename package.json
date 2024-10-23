@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "test": "vitest"
   },
   "dependencies": {
     "@emotion/react": "latest",
@@ -18,8 +19,12 @@
     "react-router-dom": "latest"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "latest",
+    "@testing-library/react": "latest",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "latest",
-    "vite": "latest"
+    "jsdom": "^25.0.1",
+    "vite": "latest",
+    "vitest": "^2.1.3"
   }
 }

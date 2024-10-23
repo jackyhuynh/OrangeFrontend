@@ -293,7 +293,7 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
                     variant="body2"
                     sx={{alignSelf: 'center'}}
                 >
-                  Sign in
+                  Sign up
                 </Link>
               </span>
                     </Typography>

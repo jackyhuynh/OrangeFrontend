@@ -197,7 +197,7 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
                             variant="contained"
                             onClick={validateInputs}
                         >
-                            Sign in
+                            Sign In
                         </Button>
                         <Typography sx={{textAlign: 'center'}}>
                             Don&apos;t have an account?{' '}

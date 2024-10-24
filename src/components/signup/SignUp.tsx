@@ -12,7 +12,7 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import MuiCard from '@mui/material/Card';
 import {styled} from '@mui/material/styles';
-import {FacebookIcon, GoogleIcon, SitemarkIcon} from '../CustomIcons';
+import {FacebookIcon, GithubIcon, GoogleIcon, SitemarkIcon} from '../CustomIcons';
 import AppTheme from "../../shared-theme/AppTheme";
 import ColorModeSelect from "../../shared-theme/ColorModeSelect";
 import {Link as RouterLink} from 'react-router-dom';
@@ -310,10 +310,10 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
                         <Button
                             fullWidth
                             variant="outlined"
-                            onClick={() => alert('Sign up with Facebook')}
-                            startIcon={<FacebookIcon/>}
+                            onClick={() => alert('Sign up with GitHub')}
+                            startIcon={<GithubIcon/>}
                         >
-                            Sign up with Facebook
+                            Sign up with GitHub
                         </Button>
                     </Box>
                 </Card>

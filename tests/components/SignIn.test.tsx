@@ -17,10 +17,10 @@ describe('SignIn Component', () => {
         expect(screen.getByLabelText(/remember me/i)).toBeInTheDocument();
         expect(screen.getByText(/forgot your password/i)).toBeInTheDocument();
         expect(screen.getByText(/Sign in with Google/i)).toBeInTheDocument();
-        expect(screen.getByText(/Sign in with Facebook/i)).toBeInTheDocument();
+        expect(screen.getByText(/Sign in with GitHub/i)).toBeInTheDocument();
         expect(screen.getByRole('button', {name: /Sign In/})).toBeInTheDocument();
         expect(screen.getByRole('button', {name: /Sign in with Google/})).toBeInTheDocument();
-        expect(screen.getByRole('button', {name: /Sign in with Facebook/})).toBeInTheDocument();
+        expect(screen.getByRole('button', {name: /Sign in with GitHub/})).toBeInTheDocument();
 
     });
 

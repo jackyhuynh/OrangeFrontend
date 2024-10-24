@@ -5,6 +5,6 @@ export default defineConfig({
     test: {
         environment: 'jsdom', // Simulate the browser environment
         globals: true, // Allow global `expect` without import
-        setupFiles: './test/setup.ts',
+        setupFiles: './tests/setup.ts',
     },
 });

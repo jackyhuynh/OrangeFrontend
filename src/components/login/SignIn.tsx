@@ -14,10 +14,12 @@ import Stack from '@mui/material/Stack';
 import MuiCard from '@mui/material/Card';
 import {styled} from '@mui/material/styles';
 import ForgotPassword from './ForgotPassword';
-import {FacebookIcon, GithubIcon, GoogleIcon, SitemarkIcon} from '../CustomIcons';
+import {GithubIcon, GoogleIcon, SitemarkIcon} from '../CustomIcons';
 import AppTheme from "../../shared-theme/AppTheme";
 import ColorModeSelect from "../../shared-theme/ColorModeSelect";
-import {Link as RouterLink} from 'react-router-dom';
+import {Link as RouterLink, useNavigate} from 'react-router-dom';
+import {signInWithEmailAndPassword} from 'firebase/auth';
+import {auth} from "../../firebaseConfig"; // Import sign-in function
 
 
 const Card = styled(MuiCard)(({theme}) => ({
@@ -62,6 +64,7 @@ const SignInContainer = styled(Stack)(({theme}) => ({
 }));
 
 export default function SignIn(props: { disableCustomTheme?: boolean }) {
+    const navigate = useNavigate(); // Initialize useNavigate
     const [emailError, setEmailError] = React.useState(false);
     const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
     const [passwordError, setPasswordError] = React.useState(false);
@@ -76,16 +79,20 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
         setOpen(false);
     };
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        if (emailError || passwordError) {
-            event.preventDefault();
-            return;
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+
+        if (validateInputs()) {
+            const email = ((document.getElementById('email')) as HTMLInputElement).value;
+            const password = ((document.getElementById('password')) as HTMLInputElement).value;
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                console.log('User signed in successfully');
+                navigate('/home');
+            } catch (error) {
+                console.log('Error signing in', error.message);
+            }
         }
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
     };
 
     const validateInputs = () => {

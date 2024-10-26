@@ -61,7 +61,6 @@ const SignUpContainer = styled(Stack)(({theme}) => ({
     },
 }));
 
-export default function SignUp(props: { disableCustomTheme?: boolean }) {
     const navigate = useNavigate();
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
@@ -104,6 +103,7 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
         if (validateInputs()) {
             const email = (document.getElementById('email') as HTMLInputElement).value;
             const password = (document.getElementById('password') as HTMLInputElement).value;
+            clearForm();
             try {
                 await createUserWithEmailAndPassword(auth, email, password);
                 console.log('User create successfully');

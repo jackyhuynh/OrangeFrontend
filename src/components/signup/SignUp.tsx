@@ -101,18 +101,19 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        if (validateInputs()) {
-            const email = (document.getElementById('email') as HTMLInputElement).value;
-            const password = (document.getElementById('password') as HTMLInputElement).value;
-            try {
-                await createUserWithEmailAndPassword(auth, email, password);
-                console.log('User create successfully');
-                navigate("/sign-in")
-            } catch (error) {
-                console.log('Error create user', error.message);
-            }
+    if (validateInputs()) {
+        const email = (document.getElementById('email') as HTMLInputElement).value;
+        const password = (document.getElementById('password') as HTMLInputElement).value;
+        clearForm();
+        try {
+            await createUserWithEmailAndPassword(auth, email, password);
+            console.log('User create successfully');
+            navigate("/sign-in")
+        } catch (error) {
+            console.log('Error create user', error.message);
         }
-    };
+    }
+};
 
     const validatePhoneNumber = (phone: string) => {
         const phonePattern = /^[0-9\-\(\)\s]+$/; // Allows digits, dashes, spaces, and parentheses

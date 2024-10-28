@@ -1,13 +1,13 @@
 // @ts-ignore
 import React from 'react';
 import {useAuthState} from 'react-firebase-hooks/auth';
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import {Navigate} from "react-router-dom"; // Import useAuthState
+import {getAuth, onAuthStateChanged} from "firebase/auth";
+import {Navigate} from "react-router-dom";
 
 const auth = getAuth();
 const MainPage = () => {
-    const [user, loading, error] = useAuthState(auth); // Get the current user
-    console.log('Auth state:', { user, loading, error }); // Debugging
+    const [user, loading, error] = useAuthState(auth);
+    console.log('Auth state:', {user, loading, error});
 
     if (loading) {
         return <p>Loading...</p>; // Show a loading message while checking auth state

@@ -1,32 +1,54 @@
+import {render, screen} from '@testing-library/react';
+import {MemoryRouter} from 'react-router-dom';
+import {describe, expect, it, vi} from 'vitest';
+import MainPage from '../../src/components/main/MainPage';
+import {useAuthState} from 'react-firebase-hooks/auth';
 import React from "react";
-import { render, screen } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
-import '@testing-library/jest-dom';
-import MainPage from "../../src/components/main/MainPage";
+
+// Mock the `react-firebase-hooks/auth` module
+vi.mock('react-firebase-hooks/auth', () => ({
+    useAuthState: vi.fn(),
+}));
+
+// Mock the Firebase auth module
+vi.mock('firebase/auth', () => ({
+    getAuth: vi.fn(() => ({})),
+}));
 
 describe('MainPage Component', () => {
-    test('renders the MainPage component with a heading', () => {
+    it('renders with a loading state', () => {
+        (useAuthState as vi.Mock).mockReturnValue([null, true, null]);
+
         render(
             <MemoryRouter>
-                <MainPage />
+                <MainPage/>
             </MemoryRouter>
         );
 
-        // Example: check if the MainPage renders with a specific text
-        const headingElement = screen.getByRole('heading', { name: /Main Page/i });
-        expect(headingElement).toBeInTheDocument();
+        expect(screen.getByText(/Loading.../i)).toBeInTheDocument();
     });
 
-    test('contains a link to the home page', () => {
+    it('renders an error message if authentication fails', () => {
+        (useAuthState as vi.Mock).mockReturnValue([null, false, {message: 'Auth Error'}]);
+
         render(
             <MemoryRouter>
-                <MainPage />
+                <MainPage/>
             </MemoryRouter>
         );
 
-        const homeLink = screen.getByRole('link', { name: /home/i });
+        expect(screen.getByText(/Error: Auth Error/i)).toBeInTheDocument();
+    });
 
-        expect(homeLink).toBeInTheDocument();
-        expect(homeLink).toHaveAttribute('href', '/');
+    it('redirects to login if no user is authenticated', () => {
+        (useAuthState as vi.Mock).mockReturnValue([null, false, null]);
+
+        render(
+            <MemoryRouter>
+                <MainPage/>
+            </MemoryRouter>
+        );
+
+        expect(screen.queryByText(/Welcome/i)).not.toBeInTheDocument();
     });
 });

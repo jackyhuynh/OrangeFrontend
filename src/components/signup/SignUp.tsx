@@ -15,7 +15,7 @@ import {styled} from '@mui/material/styles';
 import {GithubIcon, GoogleIcon, SitemarkIcon} from '../CustomIcons';
 import AppTheme from "../../shared-theme/AppTheme";
 import ColorModeSelect from "../../shared-theme/ColorModeSelect";
-import {Link as RouterLink, Navigate, useNavigate} from 'react-router-dom';
+import {Link as RouterLink, useNavigate} from 'react-router-dom';
 import Link from "@mui/material/Link";
 import {auth} from "../../firebaseConfig";
 import {createUserWithEmailAndPassword} from 'firebase/auth'; // Import sign-up function
@@ -101,19 +101,19 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-    if (validateInputs()) {
-        const email = (document.getElementById('email') as HTMLInputElement).value;
-        const password = (document.getElementById('password') as HTMLInputElement).value;
-        clearForm();
-        try {
-            await createUserWithEmailAndPassword(auth, email, password);
-            console.log('User create successfully');
-            navigate("/sign-in")
-        } catch (error) {
-            console.log('Error create user', error.message);
+        if (validateInputs()) {
+            const email = (document.getElementById('email') as HTMLInputElement).value;
+            const password = (document.getElementById('password') as HTMLInputElement).value;
+            clearForm();
+            try {
+                await createUserWithEmailAndPassword(auth, email, password);
+                console.log('User create successfully');
+                navigate("/sign-in")
+            } catch (error) {
+                console.log('Error create user', error.message);
+            }
         }
-    }
-};
+    };
 
     const validatePhoneNumber = (phone: string) => {
         const phonePattern = /^[0-9\-\(\)\s]+$/; // Allows digits, dashes, spaces, and parentheses

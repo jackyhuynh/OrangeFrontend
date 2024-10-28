@@ -12,12 +12,13 @@ import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
 import MuiCard from '@mui/material/Card';
 import {styled} from '@mui/material/styles';
-import {FacebookIcon, GithubIcon, GoogleIcon, SitemarkIcon} from '../CustomIcons';
+import {GithubIcon, GoogleIcon, SitemarkIcon} from '../CustomIcons';
 import AppTheme from "../../shared-theme/AppTheme";
 import ColorModeSelect from "../../shared-theme/ColorModeSelect";
-import {Link as RouterLink} from 'react-router-dom';
+import {Link as RouterLink, useNavigate} from 'react-router-dom';
 import Link from "@mui/material/Link";
-
+import {auth} from "../../firebaseConfig";
+import {createUserWithEmailAndPassword} from 'firebase/auth'; // Import sign-up function
 
 const Card = styled(MuiCard)(({theme}) => ({
     display: 'flex',
@@ -61,7 +62,7 @@ const SignUpContainer = styled(Stack)(({theme}) => ({
 }));
 
 export default function SignUp(props: { disableCustomTheme?: boolean }) {
-    // States for input values and errors
+    const navigate = useNavigate();
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [fullName, setFullName] = React.useState('');
@@ -97,12 +98,21 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
         setFullNameErrorMessage('');
     };
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        if (!validateInputs()) return;
-        console.log(fullName, phone, email, password);
-        clearForm();
+        if (validateInputs()) {
+            const email = (document.getElementById('email') as HTMLInputElement).value;
+            const password = (document.getElementById('password') as HTMLInputElement).value;
+            clearForm();
+            try {
+                await createUserWithEmailAndPassword(auth, email, password);
+                console.log('User create successfully');
+                navigate("/sign-in")
+            } catch (error) {
+                console.log('Error create user', error.message);
+            }
+        }
     };
 
     const validatePhoneNumber = (phone: string) => {
@@ -293,7 +303,7 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
                     variant="body2"
                     sx={{alignSelf: 'center'}}
                 >
-                  Sign up
+                  Sign In
                 </Link>
               </span>
                     </Typography>

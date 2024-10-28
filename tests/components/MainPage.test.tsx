@@ -17,6 +17,7 @@ vi.mock('firebase/auth', () => ({
 
 describe('MainPage Component', () => {
     it('renders with a loading state', () => {
+        // @ts-ignore
         (useAuthState as vi.Mock).mockReturnValue([null, true, null]);
 
         render(
@@ -29,6 +30,7 @@ describe('MainPage Component', () => {
     });
 
     it('renders an error message if authentication fails', () => {
+        // @ts-ignore
         (useAuthState as vi.Mock).mockReturnValue([null, false, {message: 'Auth Error'}]);
 
         render(
@@ -41,6 +43,7 @@ describe('MainPage Component', () => {
     });
 
     it('redirects to login if no user is authenticated', () => {
+        // @ts-ignore
         (useAuthState as vi.Mock).mockReturnValue([null, false, null]);
 
         render(

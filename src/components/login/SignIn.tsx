@@ -90,6 +90,7 @@ export default function SignIn(props: { disableCustomTheme?: boolean }) {
                 console.log('User signed in successfully');
                 navigate('/home');
             } catch (error) {
+                // @ts-ignore
                 console.log('Error signing in', error.message);
             }
         }

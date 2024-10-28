@@ -11,6 +11,7 @@ import {useAuthState} from "react-firebase-hooks/auth";
 import {auth} from "./firebaseConfig";
 import MainPage from "./components/main/MainPage";
 
+// @ts-ignore
 function PrivateRoute({children}) {
     const [user] = useAuthState(auth)
 
@@ -20,6 +21,7 @@ function PrivateRoute({children}) {
 }
 
 export default function App() {
+
     return (
         <Router>
             <Container maxWidth="sm">
@@ -65,11 +67,15 @@ export default function App() {
                         <Route
                             path="/home"
                             element={
+                            <>
+                                <Typography variant="h4" component="h1" sx={{mb: 2}}>
+                                    Welcome
+                                </Typography>
                                 <PrivateRoute>
                                     <MainPage/>
                                 </PrivateRoute>
-                            }
-                        />
+                            </>
+                            }></Route>
                     </Routes>
                     <ProTip/>
                     <Copyright/>

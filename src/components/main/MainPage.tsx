@@ -1,10 +1,11 @@
 // @ts-ignore
 import React from 'react';
 import {useAuthState} from 'react-firebase-hooks/auth';
-import {getAuth, onAuthStateChanged} from "firebase/auth";
+import {getAuth} from "firebase/auth";
 import {Navigate} from "react-router-dom";
 
 const auth = getAuth();
+
 const MainPage = () => {
     const [user, loading, error] = useAuthState(auth);
     console.log('Auth state:', {user, loading, error});
@@ -21,19 +22,10 @@ const MainPage = () => {
         return <Navigate to="/login" replace={true}/>;
     }
 
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            const uid = user.uid;
-        } else {
-            // User is signed out
-            // ...
-        }
-    });
-
     return (
         <div>
-            <h1>Welcome, {user.displayName || user.email}!</h1>
-            {/* Add your main page content here */}
+            <h1>Welcome, {user.displayName}!</h1>
+            <p>Email: {user.email}</p>
             <p>You are now logged in.</p>
         </div>
     );

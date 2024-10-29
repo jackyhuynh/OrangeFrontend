@@ -14,6 +14,11 @@ npm run build
 npm run dev
 ```
 
+- Run Test
+```bash
+npm run test 
+```
+
 - Container Docker:
 ```bash
 docker-compose build

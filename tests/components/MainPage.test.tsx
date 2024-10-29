@@ -54,4 +54,19 @@ describe('MainPage Component', () => {
 
         expect(screen.queryByText(/Welcome/i)).not.toBeInTheDocument();
     });
+
+    it('render main content when user is authenticated', () => {
+        const mockUser = {displayName: 'User', email: 'test@test.com'};
+        // @ts-ignore
+        (useAuthState as vi.Mock).mockReturnValue([mockUser, false, null]);
+
+        render(
+            <MemoryRouter>
+                <MainPage/>
+            </MemoryRouter>
+        )
+        expect(screen.getByText('Welcome, User!')).toBeInTheDocument();
+        expect(screen.getByText(/test@test.com/i)).toBeInTheDocument();
+        expect(screen.getByText('You are now logged in.')).toBeInTheDocument();
+    })
 });

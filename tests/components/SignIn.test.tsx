@@ -4,6 +4,7 @@ import '@testing-library/jest-dom';
 import SignIn from "../../src/components/login/SignIn";
 import {MemoryRouter, Route, Routes} from "react-router-dom";
 import SignUp from "../../src/components/signup/SignUp";
+import { test, describe, expect } from 'vitest';
 
 describe('SignIn Component', () => {
     test('renders the SignIn form with all required fields', () => {

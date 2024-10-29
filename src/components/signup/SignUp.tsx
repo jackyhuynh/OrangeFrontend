@@ -18,7 +18,7 @@ import ColorModeSelect from "../../shared-theme/ColorModeSelect";
 import {Link as RouterLink, useNavigate} from 'react-router-dom';
 import Link from "@mui/material/Link";
 import {auth} from "../../firebaseConfig";
-import {createUserWithEmailAndPassword} from 'firebase/auth'; // Import sign-up function
+import {createUserWithEmailAndPassword, updateProfile} from 'firebase/auth'; // Import sign-up function
 
 const Card = styled(MuiCard)(({theme}) => ({
     display: 'flex',
@@ -78,6 +78,7 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
     const [fullNameErrorMessage, setFullNameErrorMessage] = React.useState('');
 
     // Handle input changes
+    // @ts-ignore
     const handleInputChange = (setter) => (event) => setter(event.target.value);
 
     // Clear form inputs and errors
@@ -102,21 +103,33 @@ export default function SignUp(props: { disableCustomTheme?: boolean }) {
         event.preventDefault();
 
         if (validateInputs()) {
-            const email = (document.getElementById('email') as HTMLInputElement).value;
-            const password = (document.getElementById('password') as HTMLInputElement).value;
+            const email:string = (document.getElementById('email') as HTMLInputElement).value;
+            const password:string = (document.getElementById('password') as HTMLInputElement).value;
+            const name:string =(document.getElementById('fullName') as HTMLInputElement).value;
             clearForm();
+
             try {
                 await createUserWithEmailAndPassword(auth, email, password);
+                if (auth.currentUser) {
+                    updateProfile(auth.currentUser, {
+                        displayName: name
+                    }).then(() => {
+                        // ...
+                    }).catch((error) => {
+                        console.log(error.message);
+                    });
+                }
                 console.log('User create successfully');
                 navigate("/sign-in")
             } catch (error) {
+                // @ts-ignore
                 console.log('Error create user', error.message);
             }
         }
     };
 
     const validatePhoneNumber = (phone: string) => {
-        const phonePattern = /^[0-9\-\(\)\s]+$/; // Allows digits, dashes, spaces, and parentheses
+        const phonePattern = /^[0-9\-()\s]+$/; // Allows digits, dashes, spaces, and parentheses
         return phonePattern.test(phone) && phone.replace(/\D/g, '').length === 10;
     };
 

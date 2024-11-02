@@ -7,17 +7,17 @@ import { alpha } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import AppNavbar from './components/AppNavbar';
-import Header from '../../../../dashboard/components/Header';
-import MainGrid from '../../../../dashboard/components/MainGrid';
-import SideMenu from '../../../../dashboard/components/SideMenu';
-import AppTheme from '../shared-theme/AppTheme';
 import {
-  chartsCustomizations,
-  dataGridCustomizations,
-  datePickersCustomizations,
-  treeViewCustomizations,
-} from './theme/customizations';
+    chartsCustomizations,
+    dataGridCustomizations,
+    datePickersCustomizations, treeViewCustomizations
+} from "../../shared-theme/customizations";
+import AppTheme from "../../shared-theme/AppTheme";
+import SideMenu from "./components/SideMenu";
+import AppNavbar from "./components/Dashboard";
+import Header from "./components/Header";
+import MainGrid from "./components/MainGrid";
+
 
 const xThemeComponents = {
   ...chartsCustomizations,
@@ -38,7 +38,9 @@ export default function Dashboard(props: { disableCustomTheme?: boolean }) {
           component="main"
           sx={(theme) => ({
             flexGrow: 1,
+              // @ts-ignore
             backgroundColor: theme.vars
+                // @ts-ignore
               ? `rgba(${theme.vars.palette.background.defaultChannel} / 1)`
               : alpha(theme.palette.background.default, 1),
             overflow: 'auto',

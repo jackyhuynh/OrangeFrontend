@@ -10,8 +10,11 @@ import { useTheme } from '@mui/material/styles';
 export default function PageViewsBarChart() {
   const theme = useTheme();
   const colorPalette = [
+      // @ts-ignore
     (theme.vars || theme).palette.primary.dark,
+    // @ts-ignore
     (theme.vars || theme).palette.primary.main,
+    // @ts-ignore
     (theme.vars || theme).palette.primary.light,
   ];
   return (

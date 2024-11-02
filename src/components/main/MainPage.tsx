@@ -2,13 +2,17 @@
 import React from 'react';
 import {useAuthState} from 'react-firebase-hooks/auth';
 import {getAuth} from "firebase/auth";
-import {Navigate} from "react-router-dom";
+import {Navigate, useNavigate} from "react-router-dom";
+import Button from "@mui/material/Button";
+import AppTheme from "../../shared-theme/AppTheme";
 
 const auth = getAuth();
 
-const MainPage = () => {
+export default function MainPage (props: { disableCustomTheme?: boolean }) {
+    const navigate = useNavigate(); // Initialize useNavigate
     const [user, loading, error] = useAuthState(auth);
     console.log('Auth state:', {user, loading, error});
+
 
     if (loading) {
         return <p>Loading...</p>; // Show a loading message while checking auth state
@@ -22,13 +26,22 @@ const MainPage = () => {
         return <Navigate to="/login" replace={true}/>;
     }
 
+    // @ts-ignore
     return (
-        <div>
+        <AppTheme{...props}>
             <h1>Welcome, {user.displayName}!</h1>
             <p>Email: {user.email}</p>
             <p>You are now logged in.</p>
-        </div>
-    );
+            <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                onClick={navigate('/dashboard')}
+            >
+                Dashboard
+            </Button>
+        </AppTheme>
+
+);
 };
 
-export default MainPage;

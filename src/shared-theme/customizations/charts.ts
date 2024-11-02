@@ -1,7 +1,7 @@
 import { Theme } from '@mui/material/styles';
 import { axisClasses, legendClasses, chartsGridClasses } from '@mui/x-charts';
 import type { ChartsComponents } from '@mui/x-charts/themeAugmentation';
-import { gray } from '../../../shared-theme/themePrimitives';
+import {gray} from "../themePrimitives";
 
 /* eslint-disable import/prefer-default-export */
 export const chartsCustomizations: ChartsComponents<Theme> = {
@@ -34,9 +34,11 @@ export const chartsCustomizations: ChartsComponents<Theme> = {
       mark: ({ theme }) => ({
         ry: 6,
         boxShadow: 'none',
+        // @ts-ignore
         border: `1px solid ${(theme.vars || theme).palette.divider}`,
       }),
       table: ({ theme }) => ({
+        // @ts-ignore
         border: `1px solid ${(theme.vars || theme).palette.divider}`,
         borderRadius: theme.shape.borderRadius,
         background: 'hsl(0, 0%, 100%)',

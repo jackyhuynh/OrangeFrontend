@@ -105,7 +105,9 @@ interface CustomLabelProps {
 function CustomLabel({ color, expandable, children, ...other }: CustomLabelProps) {
   const theme = useTheme();
   const colors = {
+    // @ts-ignore
     blue: (theme.vars || theme).palette.primary.main,
+    // @ts-ignore
     green: (theme.vars || theme).palette.success.main,
   };
 

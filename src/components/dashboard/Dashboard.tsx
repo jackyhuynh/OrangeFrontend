@@ -17,6 +17,9 @@ import SideMenu from "./components/SideMenu";
 import AppNavbar from "./components/Dashboard";
 import Header from "./components/Header";
 import MainGrid from "./components/MainGrid";
+import {getAuth} from "firebase/auth";
+import {Navigate, useNavigate} from "react-router-dom";
+import {useAuthState} from "react-firebase-hooks/auth";
 
 
 const xThemeComponents = {
@@ -26,8 +29,26 @@ const xThemeComponents = {
   ...treeViewCustomizations,
 };
 
+const auth = getAuth();
+
 export default function Dashboard(props: { disableCustomTheme?: boolean }) {
-  return (
+    const navigate = useNavigate(); // Initialize useNavigate
+    const [user, loading, error] = useAuthState(auth);
+    console.log('Auth state:', {user, loading, error});
+
+    if (loading) {
+        return <p>Loading...</p>;
+    }
+
+    if (error) {
+        return <p>Error: {error.message}</p>;
+    }
+
+    if (!user) {
+        return <Navigate to={'/login'} replace={true}/>;
+    }
+
+    return (
     <AppTheme {...props} themeComponents={xThemeComponents}>
       <CssBaseline enableColorScheme />
       <Box sx={{ display: 'flex' }}>

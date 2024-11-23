@@ -8,13 +8,14 @@ import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import Typography from "@mui/material/Typography";
 import SignUp from "./components/signup/SignUp";
 import MainPage from "./components/main/MainPage";
+import Dashboard from "./components/dashboard/Dashboard";
 
 export default function App() {
 
     return (
         <Router>
-            <Container maxWidth="sm">
-                <Box sx={{my: 4}}>
+            <Container color='green'>
+                <Box sx={{my: 6}}>
                     <Routes>
                         {/* Route for SignIn component */}
                         <Route
@@ -61,6 +62,14 @@ export default function App() {
                                         MainPage
                                     </Typography>
                                     <MainPage/>
+                                </>
+                            }></Route>
+                        {/* Route for Dashboard */}
+                        <Route
+                            path="/dashboard"
+                            element={
+                                <>
+                                    <Dashboard/>
                                 </>
                             }></Route>
                     </Routes>

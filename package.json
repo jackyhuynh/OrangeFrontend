@@ -40,7 +40,7 @@
     "@vitejs/plugin-react": "latest",
     "@vitest/coverage-v8": "latest",
     "globals": "^15.11.0",
-    "jsdom": "^25.0.1",
+    "jsdom": "^26.0.0",
     "vite": "latest",
     "vitest": "^2.1.3"
   }

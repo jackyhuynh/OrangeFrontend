@@ -33,7 +33,7 @@
     "@eslint/js": "^9.13.0",
     "@testing-library/jest-dom": "latest",
     "@testing-library/react": "latest",
-    "@types/firebase": "^2.4.32",
+    "@types/firebase": "^3.0.0",
     "@types/node": "^22.8.1",
     "@types/react-dom": "^18.3.1",
     "@typescript-eslint/parser": "^8.11.0",

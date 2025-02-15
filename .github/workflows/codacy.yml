@@ -54,6 +54,11 @@ jobs:
           # This will hand over control about PR rejection to the GitHub side
           max-allowed-issues: 2147483647
 
+      # Optional: Filter SARIF file to include only high-severity issues
+      - name: Filter High-Severity Issues in SARIF
+        run: |
+          jq '.runs |= map(select(.tool.driver.rules[].properties.severity == "high"))' results.sarif > filtered-results.sarif
+
       # Upload the SARIF file generated in the previous step
       - name: Upload SARIF results file
         uses: github/codeql-action/upload-sarif@v3

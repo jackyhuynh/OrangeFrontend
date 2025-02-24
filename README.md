@@ -1,7 +1,7 @@
 # Orange Frontend
 
 ## Tech Stack:
-- Docker, Node Package Manager, TypeScript/JavaScript, MUI, HTML5, CSS 
+- Docker, TypeScript/JavaScript, MUI, HTML5, CSS, Google Firebase Authentication
 
 ## Practice:
 - Agile, Pair, XP

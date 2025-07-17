@@ -21,7 +21,7 @@
     "@mui/x-date-pickers": "^7.22.1",
     "@mui/x-date-pickers-pro": "^7.22.1",
     "@mui/x-tree-view": "^7.22.1",
-    "@react-spring/web": "^9.7.5",
+    "@react-spring/web": "^10.0.0",
     "dayjs": "^1.11.13",
     "firebase": "^11.2.0",
     "react": "latest",
@@ -38,7 +38,7 @@
     "@typescript-eslint/parser": "^8.11.0",
     "@vitejs/plugin-react": "latest",
     "@vitest/coverage-v8": "^3.0.2",
-    "globals": "^15.11.0",
+    "globals": "^16.0.0",
     "jsdom": "^26.0.0",
     "vite": "latest",
     "vitest": "^3.0.0"

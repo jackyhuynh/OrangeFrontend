@@ -21,7 +21,7 @@
     "@mui/x-date-pickers": "^7.22.1",
     "@mui/x-date-pickers-pro": "^7.22.1",
     "@mui/x-tree-view": "^7.22.1",
-    "@react-spring/web": "^9.7.5",
+    "@react-spring/web": "^10.0.0",
     "dayjs": "^1.11.13",
     "firebase": "^11.2.0",
     "react": "latest",
